@@ -243,7 +243,7 @@ with tab_rag:
     st.markdown('<div class="section-label">Your Question</div>', unsafe_allow_html=True)
     query = st.text_input(
         label="query",
-        placeholder="What is covered in this video?",
+        placeholder="What is covered in this video ? ",
         label_visibility="collapsed",
         key="rag_query"
     )

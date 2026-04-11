@@ -57,17 +57,23 @@ embedding = HuggingFaceEmbeddings(
 
 from youtube_transcript_api import YouTubeTranscriptApi
 
+from youtube_transcript_api import YouTubeTranscriptApi
+from youtube_transcript_api.proxies import WebshareProxyConfig
+import os
+
 def get_transcript(video_id):
-    api = YouTubeTranscriptApi()
+    proxy_config = WebshareProxyConfig(
+        proxy_username=os.getenv("PROXY_USERNAME"),
+        proxy_password=os.getenv("PROXY_PASSWORD"),
+    )
+    api = YouTubeTranscriptApi(proxy_config=proxy_config)
+    
     try:
         transcript = api.fetch(video_id)
     except:
-        transcript = api.list(video_id).find_generated_transcript(["en","hi"]).fetch()
+        transcript = api.list(video_id).find_generated_transcript(["en", "hi"]).fetch()
 
-    trans= " ".join([t.text for t in transcript])
-    
-    return trans
-
+    return " ".join([t.text for t in transcript])
 # ml algo-reMj4t7DQgI    RSeXGH2kxdo
 
 

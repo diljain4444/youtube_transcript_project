@@ -203,14 +203,32 @@ st.markdown("""
 </div>
 """, unsafe_allow_html=True)
 
+from urllib.parse import urlparse, parse_qs
+def extract_video_id(url: str) -> str:
+    parsed = urlparse(url)
+    
+    # Handle youtu.be/xxx short links
+    if parsed.hostname in ("youtu.be", "www.youtu.be"):
+        return parsed.path.lstrip("/").split("?")[0]
+    
+    # Handle youtube.com/watch?v=xxx&t=56s  ← your problem case
+    video_id = parse_qs(parsed.query).get("v", [None])[0]
+    
+    if not video_id:
+        raise ValueError(f"Could not extract video ID from URL: {url}")
+    
+    return video_id
 # ── Video ID input ───────────────────────────────────────────────────
 st.markdown('<div class="input-card">', unsafe_allow_html=True)
 st.markdown('<div class="section-label">YouTube Video ID</div>', unsafe_allow_html=True)
-video_id = st.text_input(
+video_link = st.text_input(
     label="video_id",
-    placeholder="e.g. ghPb2T0ygSE",
+    placeholder="e.g. https://www.youtube.com/watch?v=-4e3ewcTupM&t=4s",
     label_visibility="collapsed"
 )
+
+if video_link:
+    video_id=extract_video_id(video_link)
 st.markdown('</div>', unsafe_allow_html=True)
 
 # ── Mode tabs ────────────────────────────────────────────────────────

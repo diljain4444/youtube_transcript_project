@@ -198,8 +198,8 @@ st.markdown("""
 # ── Hero ─────────────────────────────────────────────────────────────
 st.markdown("""
 <div class="hero">
-    <h1>YT INSIGHT</h1>
-    <p>RAG · Summary · Mindmap — powered by AI</p>
+    <h1>YT MIND </h1>
+    <p>RAG · Summary · Mindmap — By Dil_Jain</p>
 </div>
 """, unsafe_allow_html=True)
 
@@ -243,7 +243,7 @@ with tab_rag:
     st.markdown('<div class="section-label">Your Question</div>', unsafe_allow_html=True)
     query = st.text_input(
         label="query",
-        placeholder="What is covered in this video ? ",
+        placeholder=" e.g What is covered in this video ? ",
         label_visibility="collapsed",
         key="rag_query"
     )

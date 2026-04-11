@@ -61,11 +61,20 @@ from youtube_transcript_api import YouTubeTranscriptApi
 from youtube_transcript_api.proxies import WebshareProxyConfig
 import os
 
+import os
+import requests
+from youtube_transcript_api import YouTubeTranscriptApi
+from youtube_transcript_api.proxies import GenericProxyConfig
+
 def get_transcript(video_id):
-    proxy_config = WebshareProxyConfig(
-        proxy_username=os.getenv("PROXY_USERNAME"),
-        proxy_password=os.getenv("PROXY_PASSWORD"),
+    scraper_api_key = os.getenv("SCRAPER_API_KEY")
+    proxy_url = f"http://scraperapi:{scraper_api_key}@proxy-server.scraperapi.com:8001"
+    
+    proxy_config = GenericProxyConfig(
+        http_url=proxy_url,
+        https_url=proxy_url,
     )
+    
     api = YouTubeTranscriptApi(proxy_config=proxy_config)
     
     try:

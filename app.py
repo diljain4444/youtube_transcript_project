@@ -232,7 +232,7 @@ if video_link:
 st.markdown('</div>', unsafe_allow_html=True)
 
 # ── Mode tabs ────────────────────────────────────────────────────────
-tab_rag, tab_summary, tab_mindmap = st.tabs(["🔍  RAG", "📝  Summary", "🧠  Mindmap"])
+tab_rag, tab_summary, tab_mindmap = st.tabs(["🔍 RAG", "📝 Summary", "🧠 Mindmap"])
 
 
 # ════════════════════════════════════════════════════════════════════

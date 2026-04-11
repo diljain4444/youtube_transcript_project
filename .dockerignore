@@ -1,0 +1,7 @@
+__pycache__
+*.pyc
+*.pyo
+genai_env/
+.env
+*.png
+*.jpg

@@ -10,8 +10,7 @@ st.set_page_config(
     initial_sidebar_state="collapsed"
 )
 
-import os
-API_BASE = os.getenv("API_BASE", "http://localhost:8000")
+API_BASE = "http://localhost:8000"
 
 # ── Custom CSS ───────────────────────────────────────────────────────
 st.markdown("""

@@ -67,7 +67,9 @@ from youtube_transcript_api import YouTubeTranscriptApi
 from youtube_transcript_api.proxies import GenericProxyConfig
 
 import os
-import requests
+import ssl
+import urllib3
+urllib3.disable_warnings()
 from youtube_transcript_api import YouTubeTranscriptApi
 from youtube_transcript_api.proxies import GenericProxyConfig
 
@@ -81,10 +83,15 @@ def get_transcript(video_id):
         https_url=proxy_url,
     )
     
-    api = YouTubeTranscriptApi(
-        proxy_config=proxy_config,
-        verify_ssl=False
-    )
+    api = YouTubeTranscriptApi(proxy_config=proxy_config)
+    
+    # Patch requests to disable SSL verification
+    import requests
+    old_request = requests.Session.request
+    def new_request(self, *args, **kwargs):
+        kwargs['verify'] = False
+        return old_request(self, *args, **kwargs)
+    requests.Session.request = new_request
     
     try:
         transcript = api.fetch(video_id)

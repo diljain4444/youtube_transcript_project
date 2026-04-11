@@ -2,7 +2,7 @@
 title: YT Insight API
 emoji: 🎬
 colorFrom: red
-colorTo: orange
+colorTo: yellow
 sdk: docker
 pinned: false
 ---

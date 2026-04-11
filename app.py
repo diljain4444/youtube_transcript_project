@@ -10,7 +10,7 @@ st.set_page_config(
     initial_sidebar_state="collapsed"
 )
 
-API_BASE ="https://jain4444-yt-insight-api.hf.space"
+API_BASE = "http://localhost:8000"
 
 # ── Custom CSS ───────────────────────────────────────────────────────
 st.markdown("""

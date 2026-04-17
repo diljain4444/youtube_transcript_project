@@ -64,6 +64,9 @@ def summary(video_id: str = Form(...)):
 
 
 # ── Mindmap endpoint ─────────────────────────────────────────────────
+import os
+from fastapi.responses import HTMLResponse
+
 @app.post("/mindmap")
 def mindmap(video_id: str = Form(...)):
     data = get_video_data(video_id)
@@ -72,9 +75,13 @@ def mindmap(video_id: str = Form(...)):
         "translated_list": data["list_trans"],
         "translated_doc_list": data["docs_list_trans"],
     })
-    # return the HTML file directly so frontend can render it
-    return FileResponse(
-        result["output_path"],
-        media_type="text/html",
-        filename="mindmap.html"
-    )
+    
+    output_path = result["output_path"]
+    
+    try:
+        with open(output_path, "r", encoding="utf-8") as f:
+            html_content = f.read()
+    finally:
+        os.unlink(output_path)
+    
+    return HTMLResponse(content=html_content)

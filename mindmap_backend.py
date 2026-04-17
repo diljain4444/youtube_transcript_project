@@ -651,10 +651,16 @@ def json_to_mindmap(data, output_path="mindmap.html"):
     return output_path
 
 
+import tempfile
+import os
 
 def mindmap_renderer(state):
     data = state["json_output"]
-    output_path = json_to_mindmap(data, output_path="mindmap.html")
+    
+    with tempfile.NamedTemporaryFile(suffix=".html", delete=False) as tmp:
+        tmp_path = tmp.name  # ← something like /tmp/tmpABCD1234.html
+    
+    output_path = json_to_mindmap(data, output_path=tmp_path)
     return {"output_path": output_path}
 
 
@@ -678,7 +684,7 @@ def summary_text(transcript):
     )
     chain = summary_prompt | model_text | StrOutputParser()
     result = chain.invoke({"transcript": transcript})
-    
+    #  net.show
     return result
 
 

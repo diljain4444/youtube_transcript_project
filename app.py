@@ -347,7 +347,7 @@ with tab_mindmap:
 
                         # Download button
                         st.download_button(
-                            label="⬇ Download Mindmap HTML",
+                            label="⬇ Download Mindmap HTML..",
                             data=html_content,
                             file_name="mindmap.html",
                             mime="text/html"
